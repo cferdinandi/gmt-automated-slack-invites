@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Plugin Name: GMT Slack Invites for EDD
+ * Plugin Name: GMT Automated Slack Invites
  * Plugin URI: https://github.com/cferdinandi/gmt-automated-slack-invites/
  * GitHub Plugin URI: https://github.com/cferdinandi/gmt-automated-slack-invites/
  * Description: Automate Slack team invites with WordPress.
