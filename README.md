@@ -11,6 +11,8 @@ Getting started with Automated Slack Invites is as simple as installing a plugin
 
 1. Upload the `gmt-automated-slack-invites` folder to the `/wp-content/plugins/` directory.
 2. Activate the plugin through the Plugins menu in WordPress.
+3. Add your Slack team name and authorization token under `Settings` > `Slack Settings`.
+4. Add the `[slack_signup]` shortcode on the page where you want to embed your Slack invite form.
 
 And that's it, you're done. Nice work!
 
