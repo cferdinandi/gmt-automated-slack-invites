@@ -6,9 +6,6 @@
 	 */
 	function gmt_edd_slack_form() {
 
-		// Prevent this content from caching
-		define('DONOTCACHEPAGE', TRUE);
-
 		// Variables
 		$options = gmt_edd_slack_get_theme_options();
 		$error = gmt_edd_slack_get_session( 'gmt_edd_slack_error', true );
@@ -20,21 +17,23 @@
 		}
 
 
-		$form =
-			( empty( $error ) ? '' : '<div class="gmt-edd-slack-alert gmt-edd-slack-alert-error">' . stripslashes( $error ) . '</div>' ) .
+		if (!empty($success)) {
+			$form = '<div class="gmt-edd-slack-alert gmt-edd-slack-alert-success" id="gmt_edd_slack">' . stripslashes( $success ) . '</div>';
+		} else {
+			$form =
+				'<form class="gmt-edd-slack-form" id="gmt_edd_slack" name="gmt_edd_slack" action="" method="post">' .
 
-			( empty( $success ) ? '' : '<div class="gmt-edd-slack-alert gmt-edd-slack-alert-success">' . stripslashes( $success ) . '</div>' ) .
+					( empty( $error ) ? '' : '<div class="gmt-edd-slack-alert gmt-edd-slack-alert-error">' . stripslashes( $error ) . '</div>' ) .
 
-			'<form class="gmt-edd-slack-form" id="gmt_edd_slack" name="gmt_edd_slack" action="" method="post">' .
+					'<label class="gmt-edd-slack-form-label" for="gmt_edd_slack_email">' . stripslashes( $options['email_label'] ) . '</label>' .
+					'<input type="text" name="gmt_edd_slack_email" id="gmt_edd_slack_email" value="' . esc_attr( $email ) . '">' .
 
-				'<label class="gmt-edd-slack-form-label" for="gmt_edd_slack_email">' . stripslashes( $options['email_label'] ) . '</label>' .
-				'<input type="text" name="gmt_edd_slack_email" id="gmt_edd_slack_email" value="' . esc_attr( $email ) . '">' .
+					'<button class="gmt-edd-slack-form-button">' . stripslashes( $options['join_button_text'] ) . '</button>' .
 
-				'<button class="gmt-edd-slack-form-button">' . stripslashes( $options['join_button_text'] ) . '</button>' .
+					'<input type="hidden" id="gmt_edd_slack_submit" name="gmt_edd_slack_submit" value="' . get_site_option( 'gmt_edd_slack_submit_hash' ) . '">' .
 
-				wp_nonce_field( 'gmt_edd_slack_invite_nonce', 'gmt_edd_slack_invite_process', true, false ) .
-
-			'</form>';
+				'</form>';
+		}
 
 		return $form;
 
@@ -48,12 +47,15 @@
 	 */
 	function gmt_edd_slack_process_form() {
 
-		// Verify data came from form
-		if ( !isset( $_POST['gmt_edd_slack_invite_process'] ) || !wp_verify_nonce( $_POST['gmt_edd_slack_invite_process'], 'gmt_edd_slack_invite_nonce' ) ) return;
+		// Check that form was submitted
+		if ( !isset( $_POST['gmt_edd_slack_submit'] ) ) return;
+
+		// Verify data came from proper screen
+		if ( strcmp( $_POST['gmt_edd_slack_submit'], get_site_option( 'gmt_edd_slack_submit_hash' ) ) !== 0 ) return;
 
 		// Variables
 		$options = gmt_edd_slack_get_theme_options();
-		$referer = esc_url_raw( gmt_edd_slack_get_url() );
+		$referer = add_query_arg( 'gmt-edd-slack', 'submitted', esc_url_raw( gmt_edd_slack_get_url() ) . '#gmt_edd_slack' );
 		$email = isset( $_POST['gmt_edd_slack_email'] ) ? $_POST['gmt_edd_slack_email'] : '';
 
 		// Make sure valid credentials exist
