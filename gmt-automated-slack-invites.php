@@ -5,7 +5,7 @@
  * Plugin URI: https://github.com/cferdinandi/gmt-automated-slack-invites/
  * GitHub Plugin URI: https://github.com/cferdinandi/gmt-automated-slack-invites/
  * Description: Automate Slack team invites with WordPress.
- * Version: 1.1.0
+ * Version: 1.2.0
  * Author: Chris Ferdinandi
  * Author URI: http://gomakethings.com
  * License: GPLv3
@@ -13,7 +13,7 @@
 
 
 // Define constants
-define( 'GMT_AUTOMATED_SLACK_INVITES_VERSION', '1.2.1' );
+define( 'GMT_AUTOMATED_SLACK_INVITES_VERSION', '1.2.0' );
 
 
 // Load includes

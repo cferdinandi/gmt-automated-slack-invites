@@ -26,9 +26,14 @@
 					( empty( $error ) ? '' : '<div class="gmt-edd-slack-alert gmt-edd-slack-alert-error">' . stripslashes( $error ) . '</div>' ) .
 
 					'<label class="gmt-edd-slack-form-label" for="gmt_edd_slack_email">' . stripslashes( $options['email_label'] ) . '</label>' .
-					'<input type="text" name="gmt_edd_slack_email" id="gmt_edd_slack_email" value="' . esc_attr( $email ) . '">' .
-
-					'<button class="gmt-edd-slack-form-button">' . stripslashes( $options['join_button_text'] ) . '</button>' .
+					'<div class="gmt-edd-slack-row">' .
+						'<div class="gmt-edd-slack-grid-input">' .
+							'<input type="text" name="gmt_edd_slack_email" id="gmt_edd_slack_email" value="' . esc_attr( $email ) . '">' .
+						'</div>'.
+						'<div class="gmt-edd-slack-grid-button">' .
+							'<button class="gmt-edd-slack-form-button">' . stripslashes( $options['join_button_text'] ) . '</button>' .
+						'</div>' .
+					'</div>' .
 
 					'<input type="hidden" id="gmt_edd_slack_submit" name="gmt_edd_slack_submit" value="' . get_site_option( 'gmt_edd_slack_submit_hash' ) . '">' .
 
