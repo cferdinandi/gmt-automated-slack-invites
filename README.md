@@ -1,7 +1,7 @@
 # GMT Automated Slack Invites
 Automate Slack invites with WordPress.
 
-[Download Automated Slack Invites](https://github.com/cferdinandi/gmt-automated-slack-invites/archive/master.zip)
+*__Note:__ This plugin requires PHP 7 or higher.*
 
 
 
